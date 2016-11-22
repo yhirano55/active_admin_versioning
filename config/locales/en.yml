@@ -1,0 +1,23 @@
+en:
+  activerecord:
+    models:
+      paper_trail/version: Version
+    attributes:
+      paper_trail/version:
+        id: ID
+        event: Event
+        whodunnit: Whodunnit
+        object: Object
+        created_at: Created at
+  views:
+    version:
+      empty: "This record doesn't have any %{model_name}"
+      event:
+        create: create
+        destroy: destroy
+        update: update
+      pagination:
+        last: "Last &raquo;"
+        next: "Next &rsaquo;"
+        previous: "&lsaquo; Prev"
+      unknown_user: "unknown user"

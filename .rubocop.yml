@@ -1,0 +1,14 @@
+inherit_from:
+  - .ruby-style.yml
+
+AllCops:
+  Exclude:
+    - "bin/*"
+    - "vendor/**/*"
+    - Gemfile
+    - Rakefile
+  DisplayCopNames: true
+  TargetRubyVersion: 2.1
+
+Metrics/LineLength:
+  Enabled: false

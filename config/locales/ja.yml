@@ -1,0 +1,23 @@
+ja:
+  activerecord:
+    models:
+      paper_trail/version: バージョン
+    attributes:
+      paper_trail/version:
+        id: ID
+        event: 操作
+        whodunnit: 実行者
+        object: 内容
+        created_at: 実行日時
+  views:
+    version:
+      empty: "%{model_name}は何もありません"
+      event:
+        create: 作成
+        destroy: 削除
+        update: 更新
+      pagination:
+        last: "最新 &raquo;"
+        next: "次 &rsaquo;"
+        previous: "&lsaquo; 前"
+      unknown_user: "unknown user"
