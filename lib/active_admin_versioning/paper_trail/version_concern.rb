@@ -1,8 +1,8 @@
 require "yaml"
 
 module ActiveAdminVersioning
-  module Extension
-    module PaperTrail
+  module PaperTrail
+    module VersionConcern
       def item_class
         item_type.safe_constantize
       end

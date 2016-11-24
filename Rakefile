@@ -1,6 +1,7 @@
-require "bundler/gem_tasks"
-require "rspec/core/rake_task"
+require 'bundler'
+require 'rake'
 
-RSpec::Core::RakeTask.new(:spec)
+Bundler.setup
+Bundler::GemHelper.install_tasks
 
-task :default => :spec
+FileList['tasks/**/*.rake'].each { |task| import task }
