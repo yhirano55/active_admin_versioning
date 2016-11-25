@@ -1,5 +1,5 @@
 module ActiveAdminVersioning
-  module Extension
+  module ActiveAdmin
     module Application
       def register(*arg, &block)
         super(*arg) do

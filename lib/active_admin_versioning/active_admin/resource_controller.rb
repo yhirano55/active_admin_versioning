@@ -1,5 +1,5 @@
 module ActiveAdminVersioning
-  module Extension
+  module ActiveAdmin
     module ResourceController
       def self.included(base)
         base.before_action(:set_paper_trail_whodunnit)
@@ -16,7 +16,7 @@ module ActiveAdminVersioning
       protected
 
       def user_for_paper_trail
-        current_admin_user.try(:id) || t("views.version.unknown_user")
+        respond_to?(:current_admin_user) ? current_admin_user.id : t("views.version.unknown_user")
       end
     end
   end

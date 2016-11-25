@@ -5,6 +5,8 @@ AllCops:
   Exclude:
     - "bin/*"
     - "vendor/**/*"
+    - "gemfiles/**/*"
+    - "spec/rails/**/*"
     - Gemfile
     - Rakefile
   DisplayCopNames: true
