@@ -2,7 +2,7 @@ paginated_collection(versions, display_total: false, download_links: false) do
   table_for(versions, i18n: ::PaperTrail::Version, class: "index_table") do
     column(:id)
     column(:whodunnit) do |record|
-      record.whodunnit.presence || t("views.version.unknown_user")
+      record.send(ActiveAdminVersioning.configuration.whodunnit_attribute_name).presence || t("views.version.unknown_user")
     end
     column(:event, :event_i18n)
     column(:item_type, :item_class_i18n)

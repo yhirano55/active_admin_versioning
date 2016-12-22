@@ -14,6 +14,37 @@ And then execute:
 
     $ bundle
 
+## Configuration
+
+In some cases you may need to display some extra or formatted text in whodunnit.
+For example whodunit is an ID of your user. And you want to display not just a number, but his E-mail.
+
+Create configuration 'config/initializers/active_admin_versionings.rb'
+
+```ruby
+ActiveAdminVersioning.configure do |config|
+  config.whodunnit_attribute_name = :display_whodunnit
+end
+```
+
+
+In you model:
+
+```ruby
+has_paper_trail class_name: 'MyPaperTrail'
+```
+
+```ruby
+class MyPaperTrail < PaperTrail::Version
+  def display_whodunnit
+    AdminUser.find(whodunnit).email
+  end
+end
+```
+
+This alternative "whodunnit" will only be visible in "Version" sidebar and "Version" page.
+
+
 ## Recipe for Rails 5
 
 1. Add necessary gems to `Gemfile` and `bundle`:
