@@ -1,5 +1,10 @@
-sudo: false
-language: ruby
+before_install: gem install bundler
+
 rvm:
-  - 2.3.1
-before_install: gem install bundler -v 1.13.6
+  - 2.3.3
+
+gemfile:
+  - gemfiles/rails50.gemfile
+
+script:
+  - bundle exec rspec spec
