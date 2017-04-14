@@ -43,7 +43,11 @@ module ActiveAdminVersioning
       private
 
       def enabled_paper_trail?
-        config.resource_class.try(:paper_trail).try(:enabled?) || config.resource_class.try(:paper_trail_enabled_for_model?)
+        if config.resource_class.respond_to?(:paper_trail)
+          config.resource_class.paper_trail.try(:enabled?)
+        else
+          config.resource_class.try(:paper_trail_enabled_for_model?)
+        end
       end
     end
   end
