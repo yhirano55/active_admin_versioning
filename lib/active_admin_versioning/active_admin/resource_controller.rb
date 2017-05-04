@@ -18,6 +18,10 @@ module ActiveAdminVersioning
       protected
 
       def user_for_paper_trail
+        ActiveAdminVersioning.configuration.user_for_paper_trail ? self.send(ActiveAdminVersioning.configuration.user_for_paper_trail) : super
+      end
+
+      def admin_user_for_paper_trail
         respond_to?(:current_admin_user) ? current_admin_user.id : t("views.version.unknown_user")
       end
     end
