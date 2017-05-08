@@ -44,6 +44,14 @@ end
 
 This alternative "whodunnit" will only be visible in "Version" sidebar and "Version" page.
 
+You might also want to change the way the current user is fetched. You can do so using the `user_for_paper_trail` configuration.
+
+```ruby
+ActiveAdminVersioning.configure do |config|
+  config.user_for_paper_trail = :current_admin_user
+end
+```
+
 
 ## Recipe for Rails 5
 
@@ -63,6 +71,12 @@ This alternative "whodunnit" will only be visible in "Version" sidebar and "Vers
   $ bin/rails generate active_admin:install
   $ bin/rails generate paper_trail:install
   $ bin/rails db:create db:migrate db:seed
+  ```
+
+  Optionally you can also install the default configuration file:
+
+  ```sh
+  $ bin/rails generate active_admin_versioning:install
   ```
 
 3. Add module of Paper Trail to `AdminUser`:

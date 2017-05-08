@@ -1,0 +1,5 @@
+Description:
+  Creates an initializer for active_admin_versioning.
+
+Example:
+  `rails generate active_admin_versioning:install`
