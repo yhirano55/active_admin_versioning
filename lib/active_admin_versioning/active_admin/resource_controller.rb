@@ -18,7 +18,17 @@ module ActiveAdminVersioning
       protected
 
       def user_for_paper_trail
-        respond_to?(:current_admin_user) ? current_admin_user.id : t("views.version.unknown_user")
+        if current_user_method && respond_to?(current_user_method)
+          public_send(current_user_method).try!(:id)
+        else
+          t("views.version.unknown_user")
+        end
+      end
+
+      private
+
+      def current_user_method
+        @_current_user_method ||= active_admin_namespace.current_user_method
       end
     end
   end
