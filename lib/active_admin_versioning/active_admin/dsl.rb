@@ -4,6 +4,8 @@ module ActiveAdminVersioning
       def versioning
         return unless enabled_paper_trail?
 
+        active_admin_namespace = config.namespace.name
+
         controller { include ActiveAdminVersioning::ActiveAdmin::ResourceController }
 
         member_action(:versions) do
@@ -14,7 +16,7 @@ module ActiveAdminVersioning
 
         with_options only: :show do
           action_item :version do
-            link_to send("versions_admin_#{resource_instance_name}_path") do
+            link_to [:versions, active_admin_namespace, resource_instance_name] do
               ::PaperTrail::Version.model_name.human
             end
           end
