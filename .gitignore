@@ -10,3 +10,4 @@
 /tmp/
 /gemfiles/*.gemfile.lock
 /gemfiles/vendor/
+/.idea/
