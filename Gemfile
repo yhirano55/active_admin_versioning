@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem "rails",       "~> 5.0.0"
+gem "rails",       "5.0.7"
 gem "paper_trail", "~> 5.2.2"
 gem "inherited_resources", github: "activeadmin/inherited_resources"
 gem "activeadmin",         github: "activeadmin/activeadmin"
