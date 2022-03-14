@@ -27,15 +27,18 @@ inject_into_file(
 
 # Prepare ActiveAdmin
 generate :'active_admin:install --skip-users'
+
+rake "db:migrate"
+
 generate :'active_admin:resource Post'
 inject_into_file(
-  "app/admin/post.rb",
+  "app/admin/posts.rb",
   "  permit_params :id, :title, :body\n",
   after: "ActiveAdmin.register Post do\n"
 )
 
-run "rm -r spec"
-
 route "root :to => 'admin/dashboard#index'"
 
 rake "db:migrate"
+
+run "rm -r spec"
