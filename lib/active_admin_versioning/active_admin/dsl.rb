@@ -8,16 +8,21 @@ module ActiveAdminVersioning
 
         controller { include ActiveAdminVersioning::ActiveAdmin::ResourceController }
 
-        member_action(:versions) do
-          @versions   = resource.versions.reorder(id: :desc, created_at: :desc).page(params[:page])
-          @page_title = ::PaperTrail::Version.model_name.human
-          render "versions"
+
+        if ActiveAdminVersioning.configuration.display_version_link
+          member_action(:versions) do
+            @versions   = resource.versions.reorder(id: :desc, created_at: :desc).page(params[:page])
+            @page_title = ::PaperTrail::Version.model_name.human
+            render "versions"
+          end
         end
 
         with_options only: :show do
-          action_item :version do
-            link_to [:versions, active_admin_namespace, resource_instance_name] do
-              ::PaperTrail::Version.model_name.human
+          if ActiveAdminVersioning.configuration.display_version_link
+            action_item :version do
+              link_to [:versions, active_admin_namespace, resource_instance_name] do
+                ::PaperTrail::Version.model_name.human
+              end
             end
           end
 
@@ -45,11 +50,7 @@ module ActiveAdminVersioning
       private
 
       def enabled_paper_trail?
-        if config.resource_class.respond_to?(:paper_trail)
-          config.resource_class.paper_trail.try(:enabled?)
-        else
-          config.resource_class.try(:paper_trail_enabled_for_model?)
-        end
+        config.resource_class.respond_to?(:paper_trail_options)
       end
     end
   end

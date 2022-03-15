@@ -13,10 +13,12 @@ module ActiveAdminVersioning
 
 
   class Configuration
-    attr_accessor :whodunnit_attribute_name
+    attr_accessor :whodunnit_attribute_name, :display_version_diff, :display_version_link
 
     def initialize
       @whodunnit_attribute_name = :whodunnit
+      @display_version_diff = false
+      @display_version_link = true
     end
   end
 end
