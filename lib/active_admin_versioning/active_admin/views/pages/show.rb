@@ -27,11 +27,21 @@ module ActiveAdminVersioning
                         column :method do |res|
                           res[:method]
                         end
+
                         column :from do |res|
-                          res[:from]
+                          if res[:method].end_with? "_ciphertext"
+                            resource.class.send("decrypt_#{res[:method]}", res[:from])
+                          else
+                            res[:from]
+                          end
                         end
+
                         column :to do |res|
-                          res[:to]
+                          if res[:method].end_with? "_ciphertext"
+                            resource.class.send("decrypt_#{res[:method]}", res[:to])
+                          else
+                            res[:to]
+                          end
                         end
                       end
                     end
