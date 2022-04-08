@@ -29,25 +29,35 @@ module ActiveAdminVersioning
                         end
 
                         column :from do |res|
-                          if res[:method].end_with? "_ciphertext"
-                            resource.class.send("decrypt_#{res[:method]}", res[:from])
-                          else
-                            res[:from]
-                          end
+                          filter_field(res[:method], res[:from])
                         end
 
                         column :to do |res|
-                          if res[:method].end_with? "_ciphertext"
-                            resource.class.send("decrypt_#{res[:method]}", res[:to])
-                          else
-                            res[:to]
-                          end
+                          filter_field(res[:method], res[:to])
                         end
                       end
                     end
                   end
                 end
               end
+            end
+          end
+
+          def filter_field(method, value)
+            decrypt_value = decrypt_field(method, value)
+            filter_method = filter_methods[method]
+            filter_method.present? ? filter_method.call(decrypt_value) : decrypt_value
+          end
+
+          def filter_methods
+            ActiveAdminVersioning.configuration.filter_methods.with_indifferent_access
+          end
+
+          def decrypt_field(method, value)
+            if method.end_with? "_ciphertext"
+              resource.class.send("decrypt_#{method}", value)
+            else
+              value
             end
           end
         end
