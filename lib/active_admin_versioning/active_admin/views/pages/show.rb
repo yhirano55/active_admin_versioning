@@ -59,6 +59,8 @@ module ActiveAdminVersioning
             else
               value
             end
+          rescue Lockbox::DecryptionError
+            value
           end
         end
       end
