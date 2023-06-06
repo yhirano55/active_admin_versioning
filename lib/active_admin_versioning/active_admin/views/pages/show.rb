@@ -55,12 +55,34 @@ module ActiveAdminVersioning
 
           def decrypt_field(method, value)
             if method.end_with? "_ciphertext"
-              resource.class.send("decrypt_#{method}", value)
+              decrypte_value(method, value)
             else
               value
             end
           rescue Lockbox::DecryptionError
             value
+          end
+
+          def decrypte_value(method, value)
+            klass = resource.class
+
+            return klass.send(decrypted_method(method), value) if klass.respond_to? decrypted_method(method)
+
+            klass.encrypt_and_blind_index(base_method(method) => { type: :string })
+
+            value = klass.send(decrypted_method(method), value)
+
+            klass.reset_column_information
+
+            value
+          end
+
+          def base_method(method)
+            method.match(/(.*)_ciphertext/)[1]
+          end
+
+          def decrypted_method(method)
+            "decrypt_#{method}"
           end
         end
       end
