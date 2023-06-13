@@ -64,15 +64,7 @@ module ActiveAdminVersioning
           end
 
           def decrypte_value(method, value)
-            klass = resource.class
-
-            return klass.send(decrypted_method(method), value) if klass.respond_to? decrypted_method(method)
-
-            klass.encrypt_and_blind_index(base_method(method) => { type: :string })
-
-            value = klass.send(decrypted_method(method), value)
-
-            klass.reset_column_information
+            return resource.class.send(decrypted_method(method), value) if klass.respond_to? decrypted_method(method)
 
             value
           end
